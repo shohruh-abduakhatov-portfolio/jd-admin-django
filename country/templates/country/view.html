@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Форма просмотра страны</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- start form for validation -->
+                    <form id="demo-form" action="/country/create" method="post">
+                        {{ form.non_field_errors }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>NameUzb:</label>
+                            <label class="form-control">{{ countryData.countryNameUzb }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>NameRus:</label>
+                            <label class="form-control">{{ countryData.countryNameRus }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>NameEng:</label>
+                            <label class="form-control">{{ countryData.countryNameEng }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>NameFra:</label>
+                            <label class="form-control">{{ countryData.countryNameFra }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>NameEsp:</label>
+                            <label class="form-control">{{ countryData.countryNameEsp }}</label>
+                        </div>
+                        {% csrf_token %}
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/country" class="btn btn-primary pull-left">Отменить</a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

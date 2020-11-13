@@ -1,0 +1,13 @@
+venv
+venv/*
+venv_cms
+venv_cms/*
+
+.idea/
+.idea
+.idea/*
+__pycache__/*
+__pycache__
+__pycache__/
+
+*.sqlite3

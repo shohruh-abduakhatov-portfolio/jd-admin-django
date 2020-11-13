@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Форма просмотра поезда</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- start form for validation -->
+                    <form id="demo-form" action="/train/create" method="post">
+                        {{ form.non_field_errors }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Uzb Name:</label>
+                            <label class="form-control">{{ trainData.nameUzb }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Rus Name:</label>
+                            <label class="form-control">{{ trainData.nameRus }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Eng Name:</label>
+                            <label class="form-control">{{ trainData.nameEng }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Fra Name:</label>
+                            <label class="form-control">{{ trainData.nameFra }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Esp Name:</label>
+                            <label class="form-control">{{ trainData.nameEsp }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Code:</label>
+                            <label class="form-control">{{ trainData.code }}</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>Brand:</label>
+                            <label class="form-control">{{ trainData.brand }}</label>
+                        </div>
+                        {% csrf_token %}
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/train" class="btn btn-primary pull-left">Отменить</a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Форма создания страны</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- start form for validation -->
+                    <form id="demo-form" action="/country/create" method="post">
+                        {{ form.non_field_errors }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.countryNameUzb.errors }}
+                            <label for="{{ form.countryNameUzb.id_for_label }}">NameUzb:</label>
+                            {{ form.countryNameUzb }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.countryNameRus.errors }}
+                            <label for="{{ form.countryNameRus.id_for_label }}">NameRus:</label>
+                            {{ form.countryNameRus }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.countryNameEng.errors }}
+                            <label for="{{ form.countryNameEng.id_for_label }}">NameEng:</label>
+                            {{ form.countryNameEng }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.countryNameFra.errors }}
+                            <label for="{{ form.countryNameFra.id_for_label }}">NameFra:</label>
+                            {{ form.countryNameFra }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.countryNameEsp.errors }}
+                            <label for="{{ form.countryNameEsp.id_for_label }}">NameEsp:</label>
+                            {{ form.countryNameEsp }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group checkbox">
+                            {{ form.show.errors }}
+                            <label for="{{ form.show.id_for_label }}">Show:</label>
+                            {{ form.show }}
+                        </div>
+{#                        {{ form.username }}#}
+                        {{ form.identifier }}
+                        {% csrf_token %}
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/country" class="btn btn-primary pull-left">Отменить</a>
+                                <button type="submit" class="btn btn-success pull-right">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

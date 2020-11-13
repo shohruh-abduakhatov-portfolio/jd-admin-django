@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Форма для создания поезда</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- start form for validation -->
+                    <form id="demo-form" action="/train/create" method="post">
+                        {{ form.non_field_errors }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameUzb.errors }}
+                            <label for="{{ form.nameUzb.id_for_label }}">Uzb Name:</label>
+                            {{ form.nameUzb }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameRus.errors }}
+                            <label for="{{ form.nameRus.id_for_label }}">Rus Name:</label>
+                            {{ form.nameRus }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameEng.errors }}
+                            <label for="{{ form.nameEng.id_for_label }}">Eng Name:</label>
+                            {{ form.nameEng }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameFra.errors }}
+                            <label for="{{ form.nameFra.id_for_label }}">Fra Name:</label>
+                            {{ form.nameFra }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameEsp.errors }}
+                            <label for="{{ form.nameEsp.id_for_label }}">Esp Name:</label>
+                            {{ form.nameEsp }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.code.errors }}
+                            <label for="{{ form.code.id_for_label }}">Code:</label>
+                            {{ form.code }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.brand.errors }}
+                            <label for="{{ form.brand.id_for_label }}">Brand:</label>
+                            {{ form.brand }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                             {{ form.show.errors }}
+                            <label for="{{ form.show.id_for_label }}">Show:</label>
+                            {{ form.show }}
+                        </div>
+{#                        {{ form.username }}#}
+                        {{ form.identifier }}
+                        {% csrf_token %}
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/train" class="btn btn-primary pull-left">Отменить</a>
+                                <button type="submit" class="btn btn-success pull-right">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

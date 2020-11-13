@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Содержание <a href="/content/create" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>Добавить содержание</a>
+                    </h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table id="contents_datatables" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>ИД категории</th>
+                            <th>Показать</th>
+                            {#                            <th>Last Update</th>#}
+                            <th>Действия</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", function (event) {
+            $('#contents_datatables').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "columns": [
+                    {"data": "name"},
+                    {"data": "categoryId"},
+                    {"data": "show"},
+                    //{ "data": "lastUpdate" },
+                    {
+                        "data": "action", "render": function (data, type, row) {
+                            return "<a href='/content/create?id=" + row.identifier + "' class='btn btn-success btn-xs'>Изменить</a>" +
+                                "&nbsp;<a href='/content/label?id=" + row.identifier + "' class='btn btn btn-success btn-xs'>ИзменитьМетку</a>" +
+                                "&nbsp;<a href='/content/label/create?id=" + row.identifier + "' class='btn btn btn-success btn-xs'>ДобавитьМетку</a>" +
+                                "&nbsp;<a href='/content/view?id=" + row.identifier + "' class='btn btn btn-primary btn-xs'>Посмотреть</a>" +
+                                {#"&nbsp;<a href='/content/label/view?id=" + row.identifier + "' class='btn btn btn-primary btn-xs'>ViewLabel</a>" +#}
+                                "&nbsp;<a href='javascript: void(0)' onclick='activateContent(\"" + row.identifier + "\"," + row.show + ")' class='btn btn-danger btn-xs'>Удалить</a>"{% comment %}+
+                                "&nbsp;<a href='javascript: void(0)' onclick='activateContentLabel(\"" + row.identifier + "\"," + row.show + ")' class='btn btn-danger btn-xs'>DeleteLabel</a>"{% endcomment %};
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "{% url 'contents_list_json' %}",
+                    "type": "POST",
+                    "contentType": "application/json; chartset=utf-8",
+                    "dataType": 'json',
+                    "headers": {
+                        'Content-Type': 'application/json', /*or whatever type is relevant */
+                        'Accept': 'application/json', /* ditto */
+                        'X-CSRFToken': getCookie("csrftoken")
+                    },
+                    "data": function (json) {
+                        json.customDataMap = {'contentId':'id'};
+                        console.log("json " + json[0]);
+                        return JSON.stringify(json);
+                    }
+                },
+            });
+
+            window.activateContent = function (contentId, show) {
+                var is_action = confirm("Are you sure do you want remove this content?");
+                if (is_action) {
+                    $.ajax({
+                        type: "POST",
+                        url: '{% url 'contents_activate_json' %}',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRFToken': getCookie("csrftoken")
+                        },
+                        data: JSON.stringify({contentId: contentId, show: !show}),
+                        traditional: true,
+                        success: function (data) {
+                            $('#contents_datatables').DataTable().ajax.reload();
+                            alert('Successfully activated!')
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Internal Server Error!')
+                        }
+                    });
+                }
+            }
+
+             window.activateContentLabel = function (contentId, labelId, show) {
+                var is_action = confirm("Are you sure do you want remove this label?");
+                if (is_action) {
+                    $.ajax({
+                        type: "POST",
+                        url: '{% url 'labelss_activate_json' %}',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRFToken': getCookie("csrftoken")
+                        },
+                        data: JSON.stringify({contentId:contentId, labelId, show: !show}),
+                        traditional: true,
+                        success: function (data) {
+                            $('#contentlabels_datatables').DataTable().ajax.reload();
+                            alert('Successfully activated!!!')
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Internal Server Error!')
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

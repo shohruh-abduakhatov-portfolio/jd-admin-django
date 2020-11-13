@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Документы <a href="/doc/create" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>Добавить документ</a>
+                    </h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table id="docs_datatables" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Узбекский</th>
+                            <th>Русский</th>
+                            <th>Английский</th>
+                            <th>Французский</th>
+                            <th>Испанский</th>
+                            <th>Показать</th>
+                            {#                            <th>Last Update</th>#}
+                            <th>Действия</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", function (event) {
+            $('#docs_datatables').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "columns": [
+                    {"data": "docNameUzb"},
+                    {"data": "docNameRus"},
+                    {"data": "docNameEng"},
+                    {"data": "docNameFra"},
+                    {"data": "docNameEsp"},
+                    {"data": "show"},
+                    //{ "data": "lastUpdate" },
+                    {
+                        "data": "action", "render": function (data, type, row) {
+                            return "<a href='/doc/create?id=" + row.identifier + "' class='btn btn-success btn-xs'>Изменить</a>" +
+                                "&nbsp;<a href='/doc/view?id=" + row.identifier + "' class='btn btn btn-primary btn-xs'>Посмотреть</a>" +
+                                "&nbsp;<a href='javascript: void(0)' onclick='activateDoc(\"" + row.identifier + "\"," + row.show + ")' class='btn btn-danger btn-xs'>Удалить</a>";
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "{% url 'docs_list_json' %}",
+                    "type": "POST",
+                    "contentType": "application/json; chartset=utf-8",
+                    "dataType": 'json',
+                    "headers": {
+                        'Content-Type': 'application/json', /*or whatever type is relevant */
+                        'Accept': 'application/json', /* ditto */
+                        'X-CSRFToken': getCookie("csrftoken")
+                    },
+                    "data": function (json) {
+                        return JSON.stringify(json);
+                    }
+                },
+            });
+
+            window.activateDoc = function (docId, show) {
+                var is_action = confirm("Are you sure do you want remove this document?");
+                if (is_action) {
+                    $.ajax({
+                        type: "POST",
+                        url: '{% url 'docs_activate_json' %}',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRFToken': getCookie("csrftoken")
+                        },
+                        data: JSON.stringify({docId: docId, show: !show}),
+                        traditional: true,
+                        success: function (data) {
+                            $('#docs_datatables').DataTable().ajax.reload();
+                            alert('Successfully activated!')
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Internal Server Error!')
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

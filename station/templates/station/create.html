@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Форма создания станции</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- start form for validation -->
+                    <form id="demo-form" action="/station/create" method="post">
+                        {{ form.non_field_errors }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.code.errors }}
+                            <label for="{{ form.code.id_for_label }}">Code:</label>
+                            {{ form.code }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.codeECR.errors }}
+                            <label for="{{ form.codeECR.id_for_label }}">Code ECR:</label>
+                            {{ form.codeECR }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.dor.errors }}
+                            <label for="{{ form.dor.id_for_label }}">DOR:</label>
+                            {{ form.dor }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.gos.errors }}
+                            <label for="{{ form.gos.id_for_label }}">GOS:</label>
+                            {{ form.gos }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameUzb.errors }}
+                            <label for="{{ form.nameUzb.id_for_label }}">Uzb Name:</label>
+                            {{ form.nameUzb }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameRus.errors }}
+                            <label for="{{ form.nameRus.id_for_label }}">Rus Name:</label>
+                            {{ form.nameRus }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameEng.errors }}
+                            <label for="{{ form.nameEng.id_for_label }}">Eng Name:</label>
+                            {{ form.nameEng }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.nameFull.errors }}
+                            <label for="{{ form.nameFull.id_for_label }}">Full Name:</label>
+                            {{ form.nameFull }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.otd.errors }}
+                            <label for="{{ form.otd.id_for_label }}">OTD:</label>
+                            {{ form.otd }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.sf.errors }}
+                            <label for="{{ form.sf.id_for_label }}">SF:</label>
+                            {{ form.sf }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.sign.errors }}
+                            <label for="{{ form.sign.id_for_label }}">Sign:</label>
+                            {{ form.sign }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.type.errors }}
+                            <label for="{{ form.type.id_for_label }}">Type:</label>
+                            {{ form.type }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.vrl.errors }}
+                            <label for="{{ form.vrl.id_for_label }}">VRL:</label>
+                            {{ form.vrl }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.vrz.errors }}
+                            <label for="{{ form.vrz.id_for_label }}">VRZ:</label>
+                            {{ form.vrz }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.longitude.errors }}
+                            <label for="{{ form.longitude.id_for_label }}">Longitude:</label>
+                            {{ form.longitude }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.latitude.errors }}
+                            <label for="{{ form.latitude.id_for_label }}">Latitude:</label>
+                            {{ form.latitude }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.address.errors }}
+                            <label for="{{ form.address.id_for_label }}">Address:</label>
+                            {{ form.address }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.telephone.errors }}
+                            <label for="{{ form.telephone.id_for_label }}">Telephone:</label>
+                            {{ form.telephone }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.startDate.errors }}
+                            <label for="{{ form.startDate.id_for_label }}">Start Date:</label>
+                            <div class="input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                {{ form.startDate }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.startUse.errors }}
+                            <label for="{{ form.startUse.id_for_label }}">Start Use:</label>
+                            <div class="input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                {{ form.startUse }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.rejectDate.errors }}
+                            <label for="{{ form.rejectDate.id_for_label }}">Reject Date:</label>
+                            <div class="input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                {{ form.rejectDate }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.rejectUse.errors }}
+                            <label for="{{ form.rejectUse.id_for_label }}">Reject Use:</label>
+                            <div class="input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                {{ form.rejectUse }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group checkbox">
+                            {{ form.show.errors }}
+                            <label for="{{ form.show.id_for_label }}">Show:</label>
+                            {{ form.show }}
+                        </div>
+                        {#                        {{ form.username }}#}
+                        {{ form.identifier }}
+                        {% csrf_token %}
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/station" class="btn btn-primary pull-left">Отменить</a>
+                                <button type="submit" class="btn btn-success pull-right source"  onclick="new PNotify({#}
+                                title: 'Successfully saved',
+                                text: 'DONE',
+                                type: 'success'
+                            });" >Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- daterangepicker -->
+    <script>
+        window.addEventListener("load", function (event) {
+            $('#single_cal3').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_3"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+            $('#single_cal4').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_3"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+            $('#single_cal5').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_3"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+            $('#single_cal6').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_3"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready( function(){
+        $('#suggestion').keyup(function(){
+            var query = $(this).val();
+            $.ajax(function(){
+                type: "GET"
+                url: "/friends_plans/suggest_users/"
+                data: {suggestion: query}
+                success: function name(data){
+                    console.log("SUCCESS");
+                    console.log(data);
+                }
+                failure: function name(data){
+                    console.log("FAIL");
+                    console.log(data);
+                }
+            });
+        });
+    });
+
+    </script>
+{% endblock %}

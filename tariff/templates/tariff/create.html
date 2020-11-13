@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Форма создания тарифа</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- start form for validation -->
+                    <form id="demo-form" action="/tariff/create" method="post">
+                        {{ form.non_field_errors }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.tariffNameUzb.errors }}
+                            <label for="{{ form.tariffNameUzb.id_for_label }}">NameUzb:</label>
+                            {{ form.tariffNameUzb }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.tariffNameRus.errors }}
+                            <label for="{{ form.tariffNameRus.id_for_label }}">NameRus:</label>
+                            {{ form.tariffNameRus }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.tariffNameEng.errors }}
+                            <label for="{{ form.tariffNameEng.id_for_label }}">NameEng:</label>
+                            {{ form.tariffNameEng }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.tariffNameFra.errors }}
+                            <label for="{{ form.tariffNameFra.id_for_label }}">NameFra:</label>
+                            {{ form.tariffNameFra }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            {{ form.tariffNameEsp.errors }}
+                            <label for="{{ form.tariffNameEsp.id_for_label }}">NameEsp:</label>
+                            {{ form.tariffNameEsp }}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group checkbox">
+                            {{ form.show.errors }}
+                            <label for="{{ form.show.id_for_label }}">Show:</label>
+                            {{ form.show }}
+                        </div>
+{#                        {{ form.username }}#}
+                        {{ form.identifier }}
+                        {% csrf_token %}
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/tariff" class="btn btn-primary pull-left">Отменить</a>
+                                <button type="submit" class="btn btn-success pull-right">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end form for validations -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

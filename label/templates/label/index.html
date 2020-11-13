@@ -1,0 +1,97 @@
+{#{% extends "base.html" %}#}
+{#{% block content %}#}
+{#    <div class="row">#}
+{#        <div class="col-md-12 col-sm-12 col-xs-12">#}
+{#            <div class="x_panel">#}
+{#                <div class="x_title">#}
+{#                    <h2>Метки <a href="/content/label/create" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>Добавить метку</a>#}
+{#                    </h2>#}
+{#                    <div class="clearfix"></div>#}
+{#                </div>#}
+{#                <div class="x_content">#}
+{#                    <table id="contentlabels_datatables" class="table table-striped table-bordered">#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th>LabelName</th>#}
+{#                            <th>NameUzb</th>#}
+{#                            <th>NameRus</th>#}
+{#                            <th>NameEng</th>#}
+{#                            <th>NameFra</th>#}
+{#                            <th>NameEsp</th>#}
+{#                            <th>Show</th>#}
+                            {#                            <th>Last Update</th>#}
+{#                            <th>Action</th>#}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                    </table>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script>#}
+{#        window.addEventListener("load", function (event) {#}
+{#            $('#contentlabels_datatables').dataTable({#}
+{#                "processing": true,#}
+{#                "serverSide": true,#}
+{#                "ordering": false,#}
+{#                "columns": [#}
+{#                    {"data": "labelName"},#}
+{#                    {"data": "nameUzb"},#}
+{#                    {"data": "nameRus"},#}
+{#                    {"data": "nameEng"},#}
+{#                    {"data": "nameFra"},#}
+{#                    {"data": "nameEsp"},#}
+{#                    {"data": "show"},#}
+{#                    //{ "data": "lastUpdate" },#}
+{#                    {#}
+{#                        "data": "action", "render": function (data, type, row) {#}
+{#                            return "<a href='/content/label/create?id=" + row.identifier + "' class='btn btn-success btn-xs'>Изменить</a>" +#}
+{#                                "&nbsp;<a href='/content/label/view?id=" + row.identifier + "' class='btn btn btn-primary btn-xs'>Посмотреть</a>" +#}
+{#                                "&nbsp;<a href='javascript: void(0)' onclick='activateLabel(\"" + row.identifier + "\"," + row.show + ")' class='btn btn-danger btn-xs'>Удалить</a>";#}
+{#                        }#}
+{#                    }#}
+{#                ],#}
+{#                "ajax": {#}
+{#                    "url": "{% url 'labels_list_json' %}",#}
+{#                    "type": "POST",#}
+{#                    "contentType": "application/json; chartset=utf-8",#}
+{#                    "dataType": 'json',#}
+{#                    "headers": {#}
+{#                        'Content-Type': 'application/json', /*or whatever type is relevant */#}
+{#                        'Accept': 'application/json', /* ditto */#}
+{#                        'X-CSRFToken': getCookie("csrftoken")#}
+{#                    },#}
+{#                    "data": function (json) {#}
+{#                        return JSON.stringify(json);#}
+{#                    }#}
+{#                },#}
+{#            });#}
+{##}
+{#            window.activateLabel = function (labelId, show) {#}
+{#                var is_action = confirm("Are you sure do you want remove this label?");#}
+{#                if (is_action) {#}
+{#                    $.ajax({#}
+{#                        type: "POST",#}
+{#                        url: '{% url 'labels_activate_json' %}',#}
+{#                        headers: {#}
+{#                            'Content-Type': 'application/json',#}
+{#                            'Accept': 'application/json',#}
+{#                            'X-CSRFToken': getCookie("csrftoken")#}
+{#                        },#}
+{#                        data: JSON.stringify({labelId: labelId, show: !show}),#}
+{#                        traditional: true,#}
+{#                        success: function (data) {#}
+{#                            $('#contentlabels_datatables').DataTable().ajax.reload();#}
+{#                            alert('Successfully activated!')#}
+{#                        },#}
+{#                        error: function (jqXHR, textStatus, errorThrown) {#}
+{#                            alert('Internal Server Error!')#}
+{#                        }#}
+{#                    });#}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    </script>#}
+{##}
+{#{% endblock %}#}

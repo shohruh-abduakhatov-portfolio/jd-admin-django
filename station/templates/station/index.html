@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Станции <a href="/station/create" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>Добавить станцию</a>
+                    </h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table id="stations_datatables" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Код EСЗ</th>
+                            <th>ДОР</th>
+                            <th>ГОС</th>
+                            <th>Узбекский</th>
+                            <th>Русский</th>
+                            <th>Английский</th>
+                            <th>Полное название</th>
+{#                            <th>Shortname</th>#}
+                            <th>ОТД</th>
+                            <th>Отмены действия</th>
+                            <th>Окончан использов</th>
+                            <th>СФ</th>
+                            <th>Признак АП</th>
+                            <th>Начала действия</th>
+                            <th>Начала использов</th>
+                            <th>ТИП</th>
+                            <th>ВРЛ</th>
+                            <th>ВРЗ</th>
+                            <th>Долгота</th>
+                            <th>Широта</th>
+                            <th>Адрес</th>
+                            <th>Телефон</th>
+                            <th>Показать</th>
+                            {#                            <th>Last Update</th>#}
+                            <th>Действия</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", function (event) {
+            $('#stations_datatables').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "columns": [
+                    {"data": "code"},
+                    {"data": "codeECR"},
+                    {"data": "dor"},
+                    {"data": "gos"},
+                    {"data": "nameUzb"},
+                    {"data": "nameRus"},
+                    {"data": "nameEng"},
+                    {"data": "nameFull"},
+                    {#{"data": "shortName"},#}
+                    {"data": "otd"},
+                    {"data": "rejectDate"},
+                    {"data": "rejectUse"},
+                    {"data": "sf"},
+                    {"data": "sign"},
+                    {"data": "startDate"},
+                    {"data": "startUse"},
+                    {"data": "type"},
+                    {"data": "vrl"},
+                    {"data": "vrz"},
+                    {"data": "longitude"},
+                    {"data": "latitude"},
+                    {"data": "address"},
+                    {"data": "telephone"},
+                    {"data": "show"},
+                    //{ "data": "lastUpdate" },
+                    {
+                        "data": "action", "render": function (data, type, row) {
+                            return "<a href='/station/create?id=" + row.identifier + "' class='btn btn-success btn-xs'>Изменить</a>" +
+                                "&nbsp;<a href='/station/view?id=" + row.identifier + "' class='btn btn btn-primary btn-xs'>Посмотреть</a>" +
+                                "&nbsp;<a href='javascript: void(0)' onclick='activateStation(\"" + row.identifier + "\"," + row.show + ")' class='btn btn-danger btn-xs'>Удалить</a>";
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "{% url 'stations_list_json' %}",
+                    "type": "POST",
+                    "contentType": "application/json; chartset=utf-8",
+                    "dataType": 'json',
+                    "headers": {
+                        'Content-Type': 'application/json', /*or whatever type is relevant */
+                        'Accept': 'application/json', /* ditto */
+                        'X-CSRFToken': getCookie("csrftoken")
+                    },
+                    "data": function (json) {
+                        return JSON.stringify(json);
+                    }
+                },
+            });
+
+            window.activateStation = function (id, show) {
+                var is_action = confirm("Are you sure do you want remove this station?");
+                if (is_action) {
+                    $.ajax({
+                        type: "POST",
+                        url: '{% url 'stations_activate_json' %}',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRFToken': getCookie("csrftoken")
+                        },
+                        data: JSON.stringify({id: id, show: !show}),
+                        traditional: true,
+                        success: function (data) {
+                            $('#stations_datatables').DataTable().ajax.reload();
+                            alert('Successfully activated!')
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Internal Server Error!')
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
+{% endblock %}
